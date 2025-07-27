@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 test_cases = [
     # Edge Case 1: Flip from long to short in one trade
     {
