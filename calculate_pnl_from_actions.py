@@ -16,7 +16,6 @@ def compute_realized_pnl_stock(actions, prices):
                     lambda: cost_basis / tf.abs(position),
                     lambda: tf.constant(0.0, dtype=tf.float32)
                 )
-
                 pnl = closing_size * (price - avg_price) * tf.sign(position)
                 updated_position = position + action
 
@@ -28,13 +27,11 @@ def compute_realized_pnl_stock(actions, prices):
                     lambda: cost_basis - closing_size * avg_price,
                     reset_cost_basis
                 )
-
                 updated_position_value = tf.cond(
                     tf.equal(tf.sign(position), tf.sign(updated_position)),
                     lambda: position_value,
                     lambda: tf.abs(updated_position) * price
                 )
-
                 return updated_position, updated_cost_basis, realized_pnl + pnl, updated_position_value
 
             def opening_trade():
